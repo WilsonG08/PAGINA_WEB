@@ -1,34 +1,37 @@
-import Login from './components/Login';
-import {Routes, Route} from "react-router-dom"
-import { Home } from './components/Home';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { app } from './firebase/firebase';
-import { useState } from 'react';
-import { Coordenadas } from './components/Coordenadas';
-import { Register } from './components/Register';
-import Users from './components/Users'; // Sin llaves {}
+import Login from "./components/auth/login";
+import Register from "./components/auth/register";
 
-const auth = getAuth(app)
+import Header from "./components/header";
+import Home from "./components/home";
+
+import { AuthProvider } from "./contexts/authContext";
+import { useRoutes } from "react-router-dom";
+
 function App() {
-
-  const [usuario, setUsuario] = useState(null);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUsuario(user)
-    }
-    else{
-      setUsuario(null)
-    }
-  });
-
+  const routesArray = [
+    {
+      path: "*",
+      element: <Login />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
+    },
+  ];
+  let routesElement = useRoutes(routesArray);
   return (
-    <Routes>
-      <Route path='/' element={<Login/>}/>
-      <Route path='/home' element={<Home/>}/> 
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/register' element={<Register/>}/>
-      <Route path='/users' element={<Users/>}/> {/* Agregamos la ruta para Users */}
-    </Routes>
+    <AuthProvider>
+      <Header />
+      <div className="w-full h-screen flex flex-col">{routesElement}</div>
+    </AuthProvider>
   );
 }
 
