@@ -1,0 +1,13 @@
+.modal-coord{
+    height: 600px;
+    padding-bottom: 50px;
+    width: 500px;
+}
+
+.table-th{
+    margin-top: 100px;
+}
+
+#content-table td {
+    padding: 7px;
+}
