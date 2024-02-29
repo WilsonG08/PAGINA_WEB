@@ -1,15 +1,4 @@
-<<<<<<< HEAD
 # Getting Started with Create React App
-=======
-# Topogrados
-# INTEGRANTES
-- Wilson Guayanay
-- Marlon Lalangui
-- Josue Salazar
-## PROYECTO
-El proyecto consiste en un aplicativo móvil, el cual esta enfocado a ciclistas. El proyecto tiene como finalidad saber la geolocalización del ciclista y de los demás integrantes del equipo. 
-de su equipo.
->>>>>>> 395361eb5af38cb1c42c4e0af372e67b8c1faee8
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
