@@ -1,8 +1,8 @@
-# CICLO-GO 
+# Topogrados
 # INTEGRANTES
-- Lizbeth García
-- Kevin Veliz
-- Christopher Vera
+- Wilson Guayanay
+- Marlon Lalangui
+- Josue Salazar
 ## PROYECTO
 El proyecto consiste en un aplicativo móvil, el cual esta enfocado a ciclistas. El proyecto tiene como finalidad saber la geolocalización del ciclista y de los demás integrantes del equipo. 
 de su equipo.
