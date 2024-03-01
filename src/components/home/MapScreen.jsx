@@ -36,8 +36,9 @@ const MapScreen = () => {
     }, []);
 
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
+        <div style={{ height: '100vh', width: '100%', marginTop: 50 }}>
             <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyCbCXwS4nzy0SGnZKngXY79lWPwAQYDy3I" }} // Replace with your actual API key
                 defaultCenter={{ lat: 0, lng: 0 }}
                 defaultZoom={5}
             >
