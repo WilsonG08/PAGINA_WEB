@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/authContext';
 import { getDatabase, ref, onValue, off, remove, set, update } from 'firebase/database';
 import { getAuth, createUserWithEmailAndPassword, deleteUser as deleteAuthUser } from 'firebase/auth';
 import { get, child } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
 
 const Home = ({ navigation }) => {
     const { currentUser } = useAuth();
@@ -14,6 +15,7 @@ const Home = ({ navigation }) => {
 
     const auth = getAuth();
     const database = getDatabase();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const usersRef = ref(database, 'users');
@@ -114,6 +116,39 @@ const Home = ({ navigation }) => {
                         });
                     } else {
                         console.error('No se encontró un usuario para eliminar.');
+                        // Eliminar datos del usuario de Firebase Realtime Database
+                        const usersRef = ref(database, `users/${userId}`);
+                        await remove(usersRef);
+                        console.log('Registro de usuario eliminado correctamente.');
+
+                        // Eliminar registros relacionados en la colección 'terrenos'
+                        const terrenosRef = ref(database, `terrenos/${userId}`);
+                        await remove(terrenosRef);
+                        console.log('Registros de terrenos eliminados correctamente.');
+
+
+                        // Eliminar registros relacionados en la colección 'locations'
+                        const locationsRef = ref(database, `locations/${userId}`);
+                        await remove(locationsRef);
+                        console.log('Registros de ubicaciones eliminados correctamente.');
+
+                        let id; // Declare the variable
+                        // Actualizar la lista de usuarios para mostrar el cambio
+                        const usersRefList = ref(database, `users`);
+                        onValue(usersRefList, (snapshot) => {
+                            const usersData = snapshot.val();
+                            if (usersData) {
+                                const usersArray = Object.keys(usersData).map((key) => ({
+                                    id: key,
+                                    email: usersData[key].email,
+                                    name: usersData[key].name,
+                                    lastName: usersData[key].lastName,
+                                    isActive: usersData[key].isActive,
+                                    id,
+                                }));
+                                setUsers(usersArray);
+                            }
+                        });
                     }
                 } catch (error) {
                     console.error('Error al eliminar usuario:', error.message);
@@ -132,7 +167,7 @@ const Home = ({ navigation }) => {
         }
     };
     const handleChangePage = () => {
-        navigation.navigate('/maps')
+        navigate('/maps');
     };
 
 
